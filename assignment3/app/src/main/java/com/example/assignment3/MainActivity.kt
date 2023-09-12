@@ -23,6 +23,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 
 class MainActivity : ComponentActivity() {
     private lateinit var launcher: ActivityResultLauncher<Intent>
@@ -36,10 +38,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             CompositionLocalProvider(LocalContext provides this@MainActivity) {
                 MaterialTheme {
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
+                    // Use Box to create a layered layout
+                    Box(
+                        modifier = Modifier.fillMaxSize()
                     ) {
+                        // Background Image
+                        Image(
+                            painter = painterResource(id = R.drawable.background_image),
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+
+                        // Content
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -96,8 +107,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-// ...
 @Composable
 fun WebsiteButtons(context: Context) {
     Column(
